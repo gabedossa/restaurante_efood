@@ -1,6 +1,7 @@
-﻿import { Header } from '../components/layout/Header'
+import { Header } from '../components/layout/Header'
 import { Footer } from '../components/layout/Footer'
 import { RestaurantCard } from '../components/home/RestaurantCard'
+import { Container } from '../components/ui/Container'
 import { restaurants } from '../data/restaurants'
 
 export function Home() {
@@ -8,17 +9,18 @@ export function Home() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 bg-bg-light py-10">
-        <div className="max-w-5xl mx-auto px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <main className="flex-1 bg-bg-light py-10 md:py-14">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
             {restaurants.map((restaurant) => (
               <RestaurantCard key={restaurant.id} restaurant={restaurant} />
             ))}
           </div>
-        </div>
+        </Container>
       </main>
 
       <Footer />
     </div>
   )
 }
+

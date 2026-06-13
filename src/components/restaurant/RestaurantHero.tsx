@@ -1,36 +1,33 @@
-import { Link } from 'react-router-dom'
 import type { Restaurant } from '../../types'
-import { useCart } from '../../context/CartContext'
 
 interface Props {
   restaurant: Restaurant
 }
 
 export function RestaurantHero({ restaurant }: Props) {
-  const { openCart, totalItems } = useCart()
+  const cuisineTag =
+    restaurant.tags.find((t) =>
+      ['Italiana', 'Japonesa', 'Francesa', 'Brasileira'].includes(t.name)
+    )?.name ?? restaurant.tags[0]?.name
 
   return (
-    <header className="relative h-70 bg-black">
+    <div className="relative h-70 w-full overflow-hidden bg-black">
       <img
         src={restaurant.coverImage}
         alt={restaurant.name}
-        className="w-full h-full object-cover opacity-50"
+        className="absolute inset-0 h-full w-full object-cover opacity-50"
       />
-      <div className="absolute inset-0 flex flex-col justify-between px-8 py-6 max-w-5xl mx-auto w-full">
-        <div className="flex justify-between items-center w-full">
-          <Link to="/" className="text-white font-bold text-2xl tracking-wide">
-            efood
-          </Link>
-          <button
-            onClick={openCart}
-            className="text-white text-sm flex items-center gap-2 hover:opacity-80 transition-opacity"
-          >
-            {totalItems} produto{totalItems !== 1 ? 's' : ''} no carrinho
-            <span className="text-xl">🛒</span>
-          </button>
-        </div>
-        <h1 className="text-white text-3xl font-bold">{restaurant.name}</h1>
+
+      <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-between px-5 py-6 sm:px-8">
+        {cuisineTag && (
+          <span className="text-white text-base italic font-light">
+            {cuisineTag}
+          </span>
+        )}
+        <h1 className="text-white text-[32px] font-black leading-tight">
+          {restaurant.name}
+        </h1>
       </div>
-    </header>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-﻿import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import type { Restaurant } from '../../types'
 import { StarRating } from '../ui/StarRating'
 import { Button } from '../ui/Button'
@@ -11,18 +11,18 @@ export function RestaurantCard({ restaurant }: Props) {
   const navigate = useNavigate()
 
   return (
-    <article className="bg-white shadow-sm border border-bg-peach flex flex-col">
+    <article className="bg-white border border-primary/30 flex flex-col">
       <div className="relative">
         <img
           src={restaurant.coverImage}
           alt={restaurant.name}
-          className="w-full h-40 object-cover"
+          className="w-full h-54.25 object-cover"
         />
-        <div className="absolute top-2 right-2 flex gap-1">
+        <div className="absolute top-0 right-0 flex flex-wrap justify-end gap-1">
           {restaurant.tags.map((tag) => (
             <span
               key={tag.id}
-              className="bg-primary text-white text-xs px-2 py-0.5 font-medium"
+              className="bg-primary text-bg-peach text-xs px-3 py-1 font-bold"
             >
               {tag.name}
             </span>
@@ -31,14 +31,22 @@ export function RestaurantCard({ restaurant }: Props) {
       </div>
 
       <div className="p-4 flex flex-col flex-1 gap-3">
-        <div className="flex justify-between items-start">
-          <h2 className="font-bold text-base text-text-dark">{restaurant.name}</h2>
+        <div className="flex justify-between items-center gap-2">
+          <h2 className="font-bold text-lg text-primary leading-tight">
+            {restaurant.name}
+          </h2>
           <StarRating value={restaurant.rating} />
         </div>
 
-        <p className="text-sm text-gray-500 leading-relaxed flex-1">{restaurant.description}</p>
+        <p className="text-sm text-primary/80 leading-relaxed flex-1 line-clamp-4">
+          {restaurant.description}
+        </p>
 
-        <Button onClick={() => navigate(`/restaurante/${restaurant.id}`)}>
+        <Button
+          variant="outline"
+          onClick={() => navigate(`/restaurante/${restaurant.id}`)}
+          className="self-start text-xs py-1.5 px-3 mt-1"
+        >
           Saiba mais
         </Button>
       </div>

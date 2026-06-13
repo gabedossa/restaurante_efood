@@ -1,60 +1,49 @@
 import { Link } from 'react-router-dom'
-import { useCart } from '../../context/CartContext'
+import { useCart } from '../../hooks/useCart'
+import { Logo } from '../ui/Logo'
+import { Container } from '../ui/Container'
 
 interface Props {
-  restaurantName?: string
   showCart?: boolean
 }
 
-export function Header({ restaurantName, showCart = false }: Props) {
+export function Header({ showCart = false }: Props) {
   const { openCart, totalItems } = useCart()
 
-  if (restaurantName) {
+  if (showCart) {
     return (
-      <header className="relative h-70 bg-black">
-        <img
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=400&fit=crop"
-          alt={restaurantName}
-          className="w-full h-full object-cover opacity-50"
-        />
-        <div className="absolute inset-0 flex flex-col justify-between p-8 max-w-5xl mx-auto w-full">
-          <div className="flex justify-between items-start w-full">
-            <Link to="/" className="text-white font-bold text-2xl tracking-wide">
-              efood
-            </Link>
-            {showCart && (
-              <button
-                onClick={openCart}
-                className="text-white text-sm flex items-center gap-2 hover:opacity-80 transition-opacity"
-              >
-                {totalItems} produto{totalItems !== 1 ? 's' : ''} no carrinho
-                <span className="text-xl">🛒</span>
-              </button>
-            )}
-          </div>
-          <h1 className="text-white text-3xl font-bold">{restaurantName}</h1>
-        </div>
+      <header className="bg-white border-b border-[#E2C4AB]/40">
+        <Container className="flex items-center justify-between py-4">
+          <Link
+            to="/"
+            className="text-sm font-bold text-primary hover:opacity-80 transition-opacity"
+          >
+            Restaurantes
+          </Link>
+
+          <Link to="/">
+            <Logo size="sm" />
+          </Link>
+
+          <button
+            onClick={openCart}
+            className="text-sm font-bold text-primary hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            {totalItems} produto{totalItems !== 1 ? 's' : ''} no carrinho
+          </button>
+        </Container>
       </header>
     )
   }
 
   return (
-    <header className="bg-bg-light border-b border-bg-peach">
-      <div className="max-w-5xl mx-auto px-8 py-6 flex items-center justify-between">
-        <p className="text-primary text-sm">
-          Viva experiências gastronômicas no conforto da sua casa
-        </p>
-        <Link to="/" className="text-primary font-bold text-3xl tracking-wide">
-          efood
-        </Link>
-        <button
-          onClick={openCart}
-          className="text-primary text-sm flex items-center gap-2 hover:opacity-80 transition-opacity"
-        >
-          {totalItems} produto{totalItems !== 1 ? 's' : ''} no carrinho
-          <span className="text-xl">🛒</span>
-        </button>
-      </div>
+    <header className="bg-bg-peach py-10">
+      <Container className="flex flex-col items-center gap-10 text-center">
+        <Logo size="lg" />
+        <h1 className="text-[36px] font-black text-primary leading-tight max-w-140">
+          Viva experiências gastronômicas<br />no conforto da sua casa
+        </h1>
+      </Container>
     </header>
   )
 }

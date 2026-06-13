@@ -1,4 +1,4 @@
-﻿import { useCart } from '../../context/CartContext'
+import { useCart } from '../../hooks/useCart'
 import { Cart } from '../cart/Cart'
 import { DeliveryForm } from './DeliveryForm'
 import { PaymentForm } from './PaymentForm'
@@ -13,8 +13,8 @@ export function Checkout() {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/50 z-40" />
-      <aside className="fixed top-0 right-0 h-full w-80 bg-primary z-50 overflow-y-auto shadow-2xl p-6">
+      <div className="fixed inset-0 bg-black/80 z-40" />
+      <aside className="fixed top-0 right-0 h-full w-full max-w-[360px] bg-primary z-50 overflow-y-auto shadow-2xl p-5">
         {step === 'delivery' && <DeliveryForm />}
         {step === 'payment' && <PaymentForm />}
         {step === 'confirmation' && <Confirmation />}
@@ -22,3 +22,4 @@ export function Checkout() {
     </>
   )
 }
+

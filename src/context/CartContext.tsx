@@ -1,24 +1,7 @@
-import { createContext, useContext, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 import type { CartItem, CheckoutStep, Dish, OrderConfirmation } from '../types'
-
-interface CartContextData {
-  items: CartItem[]
-  isOpen: boolean
-  step: CheckoutStep
-  confirmation: OrderConfirmation | null
-  totalItems: number
-  totalPrice: number
-  addItem: (dish: Dish) => void
-  removeItem: (dishId: number) => void
-  openCart: () => void
-  closeCart: () => void
-  setStep: (step: CheckoutStep) => void
-  setConfirmation: (data: OrderConfirmation) => void
-  clearCart: () => void
-}
-
-const CartContext = createContext<CartContextData>({} as CartContextData)
+import { CartContext } from './cartState'
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
@@ -51,6 +34,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setConfirmation(null)
   }
 
+  function completeOrder(data: OrderConfirmation) {
+    setItems([])
+    setConfirmation(data)
+    setStep('confirmation')
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -66,14 +55,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
         closeCart: () => setIsOpen(false),
         setStep,
         setConfirmation,
+        completeOrder,
         clearCart,
       }}
     >
       {children}
     </CartContext.Provider>
   )
-}
-
-export function useCart() {
-  return useContext(CartContext)
 }

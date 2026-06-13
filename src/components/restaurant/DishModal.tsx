@@ -1,6 +1,6 @@
-﻿import { useEffect } from 'react'
+import { useEffect } from 'react'
 import type { Dish } from '../../types'
-import { useCart } from '../../context/CartContext'
+import { useCart } from '../../hooks/useCart'
 import { Button } from '../ui/Button'
 
 interface Props {
@@ -29,34 +29,41 @@ export function DishModal({ dish, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
       <div
-        className="bg-primary max-w-2xl w-full flex shadow-2xl"
+        className="relative bg-primary rounded-none max-w-3xl w-full p-8 flex flex-col sm:flex-row gap-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 z-10 text-white hover:opacity-80 transition-opacity text-2xl cursor-pointer"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
         <img
           src={dish.photo}
           alt={dish.name}
-          className="w-64 h-auto object-cover shrink-0 hidden sm:block"
+          className="w-full h-56 sm:w-64 sm:h-64 object-cover shrink-0"
         />
-        <div className="p-6 flex flex-col gap-3 flex-1">
-          <h2 className="text-white font-bold text-xl">{dish.name}</h2>
-          <p className="text-white text-sm leading-relaxed flex-1">{dish.description}</p>
-          <p className="text-white text-sm">{dish.serve}</p>
-          <p className="text-white font-bold text-lg">
-            R$ {dish.price.toFixed(2).replace('.', ',')}
-          </p>
+        <div className="flex flex-col gap-4 flex-1 text-bg-peach">
+          <h2 className="text-white font-black text-xl pr-6">{dish.name}</h2>
+          <p className="text-sm leading-relaxed text-white/95 flex-1">{dish.description}</p>
+          <div className="flex flex-col gap-1 text-sm text-white/80">
+            <span>{dish.serve}</span>
+          </div>
           <Button
-            variant="outline"
-            className="border-white text-white hover:bg-white hover:text-primary mt-2"
+            variant="secondary"
+            className="self-start mt-2 px-5 py-2 text-xs"
             onClick={handleAdd}
           >
-            Adicionar ao carrinho
+            Adicionar ao carrinho - R$ {dish.price.toFixed(2).replace('.', ',')}
           </Button>
         </div>
       </div>
     </div>
   )
 }
+

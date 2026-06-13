@@ -1,11 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #e86044;
-  --color-primary-dark: #c94f38;
-  --color-bg-light: #fff8f2;
-  --color-bg-peach: #fdebd0;
-  --color-text-dark: #1d1d1d;
+  --color-primary: #E66767;
+  --color-primary-dark: #d05b5b;
+  --color-bg-light: #FFF8F2;
+  --color-bg-peach: #FFEEDB;
+  --color-border-soft: #E66767;
+  --color-accent: #E66767;
+  --color-accent-light: #FFEEDB;
+  --color-text-dark: #E66767;
+  --color-text-muted: #E66767;
 }
 
 * {
@@ -16,6 +20,16 @@
 
 body {
   font-family: 'Roboto', system-ui, sans-serif;
-  background-color: #fff8f2;
-  color: #1d1d1d;
+  background-color: #FFF8F2;
+  color: #E66767;
 }
+
+button,
+input {
+  font: inherit;
+}
+
+img {
+  display: block;
+}
+

@@ -1,6 +1,6 @@
 import { useForm } from '../../hooks/useForm'
 import type { DeliveryInfo } from '../../types'
-import { useCart } from '../../context/CartContext'
+import { useCart } from '../../hooks/useCart'
 import { Button } from '../ui/Button'
 
 const INITIAL: DeliveryInfo = {
@@ -15,6 +15,8 @@ const INITIAL: DeliveryInfo = {
 export function DeliveryForm() {
   const { setStep } = useCart()
   const { values, handleChange } = useForm<DeliveryInfo>(INITIAL)
+  const inputClass =
+    'rounded-none bg-bg-peach px-3 py-2 text-sm text-primary font-bold outline-none border-none placeholder-primary/50'
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -23,94 +25,96 @@ export function DeliveryForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <h2 className="text-white font-bold text-base mb-1">Entrega</h2>
+      <div className="mb-2">
+        <h2 className="text-bg-peach font-black text-base">Endereço de entrega</h2>
+      </div>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-white text-xs">Quem irá receber</span>
+      <label className="flex flex-col gap-1.5">
+        <span className="text-bg-peach text-xs font-bold">Quem irá receber</span>
         <input
           name="receiver"
           value={values.receiver}
           onChange={handleChange}
           required
-          className="bg-white text-sm px-3 py-2 outline-none"
-          placeholder="Nome completo"
+          className={inputClass}
+          placeholder="Nome do destinatário"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-white text-xs">Endereço</span>
+      <label className="flex flex-col gap-1.5">
+        <span className="text-bg-peach text-xs font-bold">Endereço</span>
         <input
           name="address"
           value={values.address}
           onChange={handleChange}
           required
-          className="bg-white text-sm px-3 py-2 outline-none"
-          placeholder="Rua, Avenida..."
+          className={inputClass}
+          placeholder="Rua, Avenida, Logradouro"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-white text-xs">Cidade</span>
+      <label className="flex flex-col gap-1.5">
+        <span className="text-bg-peach text-xs font-bold">Cidade</span>
         <input
           name="city"
           value={values.city}
           onChange={handleChange}
           required
-          className="bg-white text-sm px-3 py-2 outline-none"
+          className={inputClass}
           placeholder="Cidade"
         />
       </label>
 
-      <div className="grid grid-cols-2 gap-2">
-        <label className="flex flex-col gap-1">
-          <span className="text-white text-xs">CEP</span>
+      <div className="grid grid-cols-2 gap-3">
+        <label className="flex flex-col gap-1.5">
+          <span className="text-bg-peach text-xs font-bold">CEP</span>
           <input
             name="zipCode"
             value={values.zipCode}
             onChange={handleChange}
             required
-            className="bg-white text-sm px-3 py-2 outline-none"
+            className={inputClass}
             placeholder="00000-000"
           />
         </label>
-        <label className="flex flex-col gap-1">
-          <span className="text-white text-xs">Número</span>
+        <label className="flex flex-col gap-1.5">
+          <span className="text-bg-peach text-xs font-bold">Número</span>
           <input
             name="number"
             value={values.number}
             onChange={handleChange}
             required
-            className="bg-white text-sm px-3 py-2 outline-none"
+            className={inputClass}
             placeholder="Nº"
           />
         </label>
       </div>
 
-      <label className="flex flex-col gap-1">
-        <span className="text-white text-xs">Complemento (opcional)</span>
+      <label className="flex flex-col gap-1.5">
+        <span className="text-bg-peach text-xs font-bold">Complemento (opcional)</span>
         <input
           name="complement"
           value={values.complement}
           onChange={handleChange}
-          className="bg-white text-sm px-3 py-2 outline-none"
-          placeholder="Apto, bloco..."
+          className={inputClass}
+          placeholder="Apto, bloco, referência"
         />
       </label>
 
-      <div className="flex flex-col gap-2 mt-2">
+      <div className="flex flex-col gap-2 mt-4">
         <Button
           type="submit"
-          variant="outline"
+          variant="secondary"
           fullWidth
-          className="border-white text-white hover:bg-white hover:text-primary"
+          className="py-2.5 text-xs"
         >
           Continuar com o pagamento
         </Button>
         <Button
           type="button"
-          variant="outline"
+          variant="secondary"
           fullWidth
-          className="border-white text-white hover:bg-white hover:text-primary"
+          className="py-2.5 text-xs bg-bg-peach/80 text-primary border-none"
           onClick={() => setStep('cart')}
         >
           Voltar para o carrinho
@@ -119,3 +123,4 @@ export function DeliveryForm() {
     </form>
   )
 }
+
